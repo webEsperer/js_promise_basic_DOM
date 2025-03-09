@@ -15,14 +15,20 @@ const promise2 = new Promise((resolve, reject) => {
   }, 3000);
 });
 
-promise1.then((text) => {
+function printMessage(text, isError = false) {
   divElement.innerText = text;
   divElement.classList.add('message');
   document.body.appendChild(divElement);
+
+  if (isError) {
+    divElement.classList.add('error-message');
+  }
+}
+
+promise1.then((text) => {
+  printMessage(text);
 });
 
 promise2.catch((error) => {
-  divElement.innerText = error;
-  divElement.classList.add('message', 'error-message');
-  document.body.appendChild(divElement);
+  printMessage(error, true);
 });
